@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0d0f1f">
+<title>مخطط يومي</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="glow g1"></div><div class="glow g2"></div>
+<main class="app">
+  <header class="top">
+    <div>
+      <h1 id="hTitle">جدولي</h1>
+      <p id="hSub" class="mute"></p>
+    </div>
+    <div class="tools">
+      <button class="ic" id="btnMonth" aria-label="التقويم الشهري"><i class="fa-regular fa-calendar-days"></i></button>
+      <button class="ic" id="btnSound" aria-label="الصوت"><i class="fa-solid fa-volume-high"></i></button>
+      <button class="ic" id="btnExport" aria-label="تصدير"><i class="fa-solid fa-download"></i></button>
+      <button class="ic" id="btnImport" aria-label="استيراد"><i class="fa-solid fa-upload"></i></button>
+      <input type="file" id="fileIn" accept="application/json" hidden>
+    </div>
+  </header>
+
+  <nav class="week" id="week" aria-label="أيام الأسبوع"></nav>
+
+  <section class="card progress">
+    <div class="row"><span id="pText">لا توجد مهام</span><b id="pPct">0%</b></div>
+    <div class="bar"><i id="pBar"></i></div>
+  </section>
+
+  <section class="bar-tools">
+    <label class="search"><i class="fa-solid fa-magnifying-glass"></i><input id="search" type="search" placeholder="ابحث في المهام"></label>
+    <div class="seg" id="filters">
+      <button data-f="all" class="on">الكل</button><button data-f="pending">المتبقية</button><button data-f="done">المكتملة</button>
+    </div>
+  </section>
+
+  <section id="list" class="list" aria-live="polite"></section>
+</main>
+
+<button class="fab add" id="fabAdd" aria-label="مهمة جديدة"><i class="fa-solid fa-plus"></i></button>
+<button class="fab ai" id="fabAi" aria-label="المساعد الذكي"><i class="fa-solid fa-wand-magic-sparkles"></i></button>
+
+<dialog id="dlgTask">
+  <form id="form" method="dialog" class="sheet">
+    <h2>مهمة جديدة</h2>
+    <input id="fTitle" required placeholder="عنوان المهمة أو المحاضرة">
+    <div class="grid2">
+      <select id="fCat"></select>
+      <select id="fPri"><option value="high">أولوية عالية</option><option value="medium" selected>أولوية متوسطة</option><option value="low">أولوية منخفضة</option></select>
+      <input id="fDate" type="date" required>
+      <select id="fRep"><option value="none">بدون تكرار</option><option value="daily">يوميًا</option><option value="weekly">أسبوعيًا</option></select>
+      <label class="lbl">من<input id="fStart" type="time"></label>
+      <label class="lbl">إلى<input id="fEnd" type="time"></label>
+    </div>
+    <input id="fLoc" placeholder="المكان (اختياري)">
+    <div class="acts"><button type="button" class="ghost" data-close>إلغاء</button><button class="primary">حفظ المهمة</button></div>
+  </form>
+</dialog>
+
+<dialog id="dlgMonth">
+  <div class="sheet">
+    <div class="row mh"><button class="ic" id="mPrev" aria-label="الشهر السابق"><i class="fa-solid fa-chevron-right"></i></button><h2 id="mTitle"></h2><button class="ic" id="mNext" aria-label="الشهر التالي"><i class="fa-solid fa-chevron-left"></i></button></div>
+    <div class="mgrid heads" id="mHeads"></div>
+    <div class="mgrid" id="mGrid"></div>
+    <div class="acts"><button class="ghost" id="mToday">اليوم</button><button class="primary" data-close>إغلاق</button></div>
+  </div>
+</dialog>
+
+<section class="chat" id="chat" aria-hidden="true">
+  <div class="chat-h"><b><i class="fa-solid fa-wand-magic-sparkles"></i> المساعد</b>
+    <span><button class="ic sm" id="btnSpeak" aria-label="النطق"><i class="fa-solid fa-volume-high"></i></button><button class="ic sm" id="chatX" aria-label="إغلاق"><i class="fa-solid fa-xmark"></i></button></span></div>
+  <div class="msgs" id="msgs"></div>
+  <form class="chat-f" id="chatForm">
+    <button type="button" class="mic" id="mic" aria-label="تحدث"><i class="fa-solid fa-microphone"></i></button>
+    <input id="chatIn" placeholder="اكتب أو تحدث بالعربية" autocomplete="off">
+    <button class="send" aria-label="إرسال"><i class="fa-solid fa-paper-plane"></i></button>
+  </form>
+</section>
+<div class="toast" id="toast"></div>
+<script src="script.js"></script>
+</body>
+</html>
